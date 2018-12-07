@@ -5,7 +5,7 @@
  * Date: 06-12-18
  * Time: 15:37
  */
-
+include 'hoi.php';
 
 // Als de parameter aanwezig is
 // stop de parameter in de array met de juiste waarde
@@ -15,12 +15,19 @@ function only_this_get_params($this_get_params = []) {
     $allowed_get_array = [];
 
         // Maak de functie af zoals getoond in de les.
+    foreach ($this_get_params as $param) {
+        if (isset($_GET[$param])){
+            $allowed_get_array[$param] = $_GET[$param];
+        }else{
+            $allowed_get_array[$param] = NULL;
+        }
+    }
 
     return $allowed_get_array;
 }
 
 
-$get_params = only_this_get_params(['gebruikersnaam', 'wachtwoord']);
+$get_params = only_this_get_params($expected);
 var_dump($get_params);
 echo "<br />";
 
@@ -30,8 +37,7 @@ function is_not_empty($value) {
     $real_value = trim($value);
 
     // Maak de functie af zoals getoond in de les.
-
-    return ;
+    return isset($real_value) && $real_value !== "";
 }
 
 // Check alle parameters die eerder toegestaan zijn
